@@ -72,7 +72,7 @@ function allRoles() {
 function allEmployees () {
     const request = 'SELECT * FROM employees';
     connection.query(request, function(res) {
-        console.log(employees);
+        // console.log(employees);
         console.table(res);
         promptUser();
     })
