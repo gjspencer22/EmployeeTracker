@@ -29,7 +29,7 @@ function promptUser () {
     )
     .then((answer) => {
         switch (answer.options) {
-            case "View all departments":
+            case ("View all departments"):
                 departments();
                 break;
         }
@@ -37,7 +37,11 @@ function promptUser () {
 }
 
 function departments() {
-   db.query (`SELECT * FROM department";`)
-   console.table(rows);
+   const request = 'SELECT * FROM department';
+   connection.query(request, function ( res) {
+       console.log("Departments");
+       console.table(res);
+       promptUser();
+   })
 }
 promptUser();
