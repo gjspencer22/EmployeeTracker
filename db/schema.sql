@@ -3,7 +3,7 @@ CREATE DATABASE employee;
 
 USE employee;
 
-CREATE TABLE employees(
+CREATE TABLE employee(
     id INTEGER NOT NULL,
     book_name NOT NULL
     first_name VARCHAR(20) NOT NULL,
