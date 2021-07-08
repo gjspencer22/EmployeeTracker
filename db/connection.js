@@ -1,4 +1,4 @@
-const mysql = require('mysql12');
+const mysql = require('mysql');
 
 const connection = mysql.createConnection({
 host: 'localhost',
@@ -7,4 +7,4 @@ database: 'employees',
 password: 'password',
 });
 
-module.exports = db;
+module.exports = connection;
