@@ -1,4 +1,4 @@
-INSERT INTO employees
+INSERT INTO employees;
 (first_name, last_name)
 VALUES
 ('Garrett', 'Spencer'),

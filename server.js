@@ -1,7 +1,7 @@
 const express = require('express');
 const connection = require('./db/connection');
 const inquirer = require('inquirer');
-const { exit } = require('process');
+
 
 
 
@@ -72,7 +72,7 @@ function allRoles() {
 function allEmployees () {
     const request = 'SELECT * FROM employees';
     connection.query(request, function(res) {
-        console.log("Employees");
+        console.log(employees);
         console.table(res);
         promptUser();
     })
