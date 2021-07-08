@@ -1,6 +1,7 @@
 const express = require('express');
-const db = require('./db/connection');
+const connection = require('./db/connection');
 const inquirer = require('inquirer');
+const { exit } = require('process');
 
 
 
@@ -19,29 +20,66 @@ function promptUser () {
         choices: [
             'View all departments',
             'View all roles',
-            'View all Employees',
+            'View all employees',
             'Add a department',
             'Add a role',
             'Add a employee',
-            'Update an employee role'
+            'Update an employee role',
+            'Exit'
         ]
      }   
     )
     .then((answer) => {
-        switch (answer.options) {
+
+        switch (answer.choice) {
             case ("View all departments"):
                 departments();
                 break;
+
+            case ("View all roles"):
+                allRoles();
+                break;
+
+            case ("View all employees"):
+                allEmployees();
+                break;
+
+            case ("Exit"):
+                exitApp();
+               
         }
     })
 }
 
 function departments() {
    const request = 'SELECT * FROM department';
-   connection.query(request, function ( res) {
+   connection.query(request, function (res) {
        console.log("Departments");
        console.table(res);
        promptUser();
    })
 }
+
+function allRoles() {
+    const request = 'SELECT * FROM roles';
+    connection.query(request, function (res) {
+        console.log("Roles");
+        console.table(res);
+        promptUser();
+    })
+}
+
+function allEmployees () {
+    const request = 'SELECT * FROM employees';
+    connection.query(request, function(res) {
+        console.log("Employees");
+        console.table(res);
+        promptUser();
+    })
+}
+
+function exitApp() {
+    console.log("Goodbye")
+}
+
 promptUser();
