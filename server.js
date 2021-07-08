@@ -2,6 +2,7 @@ const express = require('express');
 const connection = require('./db');
 const inquirer = require('inquirer');
 const db = require("./db");
+// require("console.table");
 
 
 
