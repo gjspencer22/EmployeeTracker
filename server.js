@@ -1,91 +1,76 @@
-const express = require('express');
-const connection = require('./db');
 const inquirer = require('inquirer');
-const db = require("./db");
-// require("console.table");
+const db = require('./db/connection');
+const mysql = require('mysql');
+const express = require('express');
+const router = express.Router();
 
 
+db.connect(async function () {
+    start();
+})
 
-
-
-const PORT = process.env.PORT || 3001;
-const app = express();
-
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-
-function promptUser() {
-    inquirer.prompt(
+function start() {
+    inquirer.prompt([
         {
             type: 'list',
             name: 'choice',
-            message: 'Select one of the following.',
+            message: 'Select an option.',
             choices: [
-                'View all departments',
-                'View all roles',
-                'View all employees',
-                'Add a department',
-                'Add a role',
-                'Add a employee',
-                'Update an employee role',
-                'Exit'
-            ]
+                'View Employees',
+                'View Roles',
+                'View Departments',
+                'Add Employee',
+                'Add Role',
+                'Add Department',
+                'Quit'
+            ],
         }
+    ]
     )
         .then((answer) => {
-
             switch (answer.choice) {
-                case ("View all departments"):
-                    departments();
-                    break;
+                case 'View Employees':
+                    
+                    viewEmployees();
 
-                case ("View all roles"):
-                    allRoles();
-                    break;
+                // case 'View Roles':
 
-                case ("View all employees"):
-                    allEmployees();
-                    break;
+                //     viewRoles();
 
-                case ("Exit"):
-                    exitApp();
+                // case 'View Departments':
 
+                //     viewDepartments();
+
+                // case 'Add Employee':
+
+                //     addEmployee();
+
+                // case 'Add Role':
+
+                //     addRole();
+
+                // case 'Add Department':
+
+                //     addDepartment();
+
+                // case 'Quit':
+
+                //     Quit();
             }
-        })
+
+        }
+
+        )
 }
 
-function departments() {
-    const request = 'SELECT * FROM department';
-    connection.query(request, function (res) {
-        console.log("Departments");
-        console.table(res);
-        promptUser();
-    })
-}
-
-function allRoles() {
-    const request = 'SELECT * FROM roles';
-    connection.query(request, function (res) {
-        console.log("Roles");
-        console.table(res);
-        promptUser();
-    })
-}
-
-async function allEmployees(){
-    const employees = await db.findAllEmployees()
-    console.table(employees)
-    promptUser();
-  }
-    // connection.query(request, function (res) {
-    //     // console.log(employees);
-    //     console.table(res);
-    //     promptUser();
-    // })
+function viewEmployees() {
+    const request = (await connection.promise().query(`SELECT * FROM employees`))[0];
+    console.table (request);
+        
+        
+        start();
+    }
 
 
-function exitApp() {
-    console.log("Goodbye")
-}
 
-promptUser();
+// viewEmployees();

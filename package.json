@@ -1,14 +1,13 @@
 {
   "name": "employee-tracker",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "dependencies": {
     "console.table": "^0.10.0",
     "express": "^4.17.1",
     "inquirer": "^8.1.1",
     "mysql": "^2.18.1",
-    "mysql2": "^2.2.5"
+    "mysql2": "^2.3.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -25,5 +24,6 @@
   "bugs": {
     "url": "https://github.com/gjspencer22/EmployeeTracker/issues"
   },
-  "homepage": "https://github.com/gjspencer22/EmployeeTracker#readme"
+  "homepage": "https://github.com/gjspencer22/EmployeeTracker#readme",
+  "description": ""
 }
