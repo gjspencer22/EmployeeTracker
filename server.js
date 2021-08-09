@@ -29,6 +29,7 @@ function start() {
     )
         .then((answer) => {
             switch (answer.choice) {
+                
                 case 'View Employees':
                     
                     viewEmployees();
@@ -64,13 +65,14 @@ function start() {
 }
 
 function viewEmployees() {
-    const request = (await connection.promise().query(`SELECT * FROM employees`))[0];
-    console.table (request);
-        
-        
-        start();
-    }
-
+    let request = "SELECT * FROM bussiness";
+    db.query(request, function(err, res) {
+      if (err) throw err;
+      console.log("Viewing All Employees");
+      console.table(res);
+      start();
+    })
+  };
 
 
 // viewEmployees();

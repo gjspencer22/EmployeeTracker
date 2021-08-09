@@ -1,7 +1,6 @@
-USE employees;
+USE bussiness;
 
-INSERT INTO employeesTable
-(id, first_name, last_name)
+INSERT INTO employees(id, first_name, last_name)
 VALUES
 (1, 'test', 'Garrett', 'Spencer'),
 (2, 'Kobe', 'Bryant'),

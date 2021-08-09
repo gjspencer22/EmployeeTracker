@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS employees;
-CREATE DATABASE employees;
-USE employees;
+DROP DATABASE IF EXISTS bussiness;
+CREATE DATABASE bussiness;
+USE bussiness;
 
-CREATE TABLE employeeTable (
+CREATE TABLE employees (
     id INT NOT NULL AUTO_INCREMENT,
     first_name VARCHAR(20)NOT NULL,
     last_name VARCHAR(20) NOT NULL

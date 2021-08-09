@@ -1,12 +1,10 @@
-DROP TABLE IF EXISTS employeesTable;
-DROP TABLE IF EXISTS roles;
-DROP TABLE IF EXISTS departments;
+DROP DATABASE IF EXISTS bussiness;
+CREATE DATABASE bussiness;
 
-CREATE DATABASE employees;
 
-USE employees;
+USE bussiness;
 
-CREATE TABLE employeeTable(
+CREATE TABLE employees(
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(25) NOT NULL,
     last_name VARCHAR(25) NOT NULL,
