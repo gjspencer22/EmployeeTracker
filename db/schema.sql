@@ -1,17 +1,14 @@
-DROP DATABASE IF EXISTS bussiness;
-CREATE DATABASE bussiness;
+DROP DATABASE IF EXISTS business;
+CREATE DATABASE business;
 
 
-USE bussiness;
+USE business;
 
-CREATE TABLE employees(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(25) NOT NULL,
-    last_name VARCHAR(25) NOT NULL,
-    role_id INT,
-    manager_id INT,
-    FOREIGN KEY (role_id) REFERENCES roles(id),
-    FOREIGN KEY(manager_id) REFERENCES employees(id)
+
+CREATE TABLE department(
+    id INT AUTO_INCREMENT,
+    department_name VARCHAR(25) NOT NULL,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE roles(
@@ -22,9 +19,13 @@ CREATE TABLE roles(
     PRIMARY KEY (id),
     FOREIGN KEY (department_id) REFERENCES department(id)
 );
-
-CREATE TABLE departments(
-    id INT AUTO_INCREMENT,
-    name VARCHAR(25) NOT NULL,
-    PRIMARY KEY (id)
+CREATE TABLE employees(
+    id INT AUTO_INCREMENT,
+    first_name VARCHAR(25) NOT NULL,
+    last_name VARCHAR(25) NOT NULL,
+    role_id INT,
+    manager_id INT,
+    FOREIGN KEY (role_id) REFERENCES roles(id),
+    REFERENCES employees(id)
 );
+

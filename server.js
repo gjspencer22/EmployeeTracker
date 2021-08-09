@@ -34,9 +34,9 @@ function start() {
                     
                     viewEmployees();
 
-                // case 'View Roles':
+                case 'View Roles':
 
-                //     viewRoles();
+                    viewRoles();
 
                 // case 'View Departments':
 
@@ -65,7 +65,7 @@ function start() {
 }
 
 function viewEmployees() {
-    let request = "SELECT * FROM bussiness";
+    const request = "SELECT * FROM employees";
     db.query(request, function(err, res) {
       if (err) throw err;
       console.log("Viewing All Employees");
@@ -73,6 +73,16 @@ function viewEmployees() {
       start();
     })
   };
+
+function viewRoles() {
+    let request = "SELECT * FROM roles";
+    db.query(request, function(err, res) {
+        if (err) throw err;
+        console.log("Viewing All Roles");
+        console.table(res);
+        start();
+    })
+}
 
 
 // viewEmployees();

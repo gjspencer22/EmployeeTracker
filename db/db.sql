@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS bussiness;
-CREATE DATABASE bussiness;
-USE bussiness;
+DROP DATABASE IF EXISTS business;
+CREATE DATABASE business;
+USE business;
 
 CREATE TABLE employees (
     id INT NOT NULL AUTO_INCREMENT,

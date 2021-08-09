@@ -1,14 +1,15 @@
-USE bussiness;
+USE business;
+
 
 INSERT INTO employees(id, first_name, last_name)
 VALUES
-(1, 'test', 'Garrett', 'Spencer'),
+(1, 'test', 'Garrett'),
 (2, 'Kobe', 'Bryant'),
-(3 'Babe', 'Ruth'),
-(4 'Penny', 'Hardaway'),
-(5 'Jack', 'Sparrow');
+(3, 'Babe', 'Ruth'),
+(4, 'Penny', 'Hardaway'),
+(5,'Jack', 'Sparrow');
 
-INSERT INTO departments(department_name)
+INSERT INTO department(name)
 VALUES 
 ('Meat'),
 ('Dairy'),
