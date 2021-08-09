@@ -9,7 +9,7 @@ VALUES
 (4, 'Penny', 'Hardaway'),
 (5,'Jack', 'Sparrow');
 
-INSERT INTO department(name)
+INSERT INTO department(department_name)
 VALUES 
 ('Meat'),
 ('Dairy'),
