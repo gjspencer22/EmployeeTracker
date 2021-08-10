@@ -175,7 +175,7 @@ function newEmployee() {
         },
         {
             type: 'input',
-            message: 'Enter thier managers ID',
+            message: 'Enter their managers ID',
             name: 'ManagerID'
         }
         
@@ -265,11 +265,16 @@ function newDepartment() {
             type: 'input',
             message: 'Enter new department name.',
             name: 'NewDepartment'
+        },
+        {
+            type: 'input',
+            message: 'Enter new department ID.',
+            name: 'NewDepartmentID'   
         }
     ])
     .then(function (response) {
-        connection.query('INSERT INTO department(department_name) VALUES(?)',
-        [response.NewDepartment], function (err, response) {
+        connection.query('INSERT INTO department(department_name, roles_id) VALUES(?,?)',
+        [response.NewDepartment, response.NewDepartmentID], function (err, response) {
             console.log(err)
             if (err) throw err
             console.table(response);
