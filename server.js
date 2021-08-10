@@ -2,6 +2,7 @@ const inquirer = require('inquirer');
 const db = require('./db/connection');
 const mysql = require('mysql');
 const express = require('express');
+const { connection } = require('./db');
 const router = express.Router();
 
 
@@ -19,7 +20,7 @@ function start() {
                 'View Employees',
                 'View Roles',
                 'View Departments',
-                'Add Employee',
+                'Add New Employee',
                 'Add Role',
                 'Add Department',
                 'Quit'
@@ -33,19 +34,19 @@ function start() {
                 case 'View Employees':
                     
                     viewEmployees();
-
+                    break;
                 case 'View Roles':
 
                     viewRoles();
+                    break;
+                case 'View Departments':
 
-                // case 'View Departments':
+                    viewDepartments();
+                    break;
+                case 'Add New Employee':
 
-                //     viewDepartments();
-
-                // case 'Add Employee':
-
-                //     addEmployee();
-
+                    newEmployee();
+                    break;
                 // case 'Add Role':
 
                 //     addRole();
@@ -54,9 +55,10 @@ function start() {
 
                 //     addDepartment();
 
-                // case 'Quit':
+                case 'Quit':
 
-                //     Quit();
+                    Quit();
+                    break;
             }
 
         }
@@ -70,8 +72,28 @@ function viewEmployees() {
       if (err) throw err;
       console.log("Viewing All Employees");
       console.table(res);
-      start();
-    })
+      inquirer.prompt([
+          {
+              type: 'list',
+              name: 'choice',
+              message: 'select an option.',
+              choices: [
+                  'Main Menu',
+                  'Quit'
+              ],
+          }
+      ])
+      .then((answer) => {
+          switch (answer.choice) {
+              case 'Main Menu':
+                  start();
+                break;
+                case 'Quit':
+                    Quit();
+          }
+      })
+    //   start();
+    }) 
   };
 
 function viewRoles() {
@@ -80,9 +102,117 @@ function viewRoles() {
         if (err) throw err;
         console.log("Viewing All Roles");
         console.table(res);
-        start();
+        inquirer.prompt([
+            {
+                type: 'list',
+                name: 'choice',
+                message: 'select an option.',
+                choices: [
+                    'Main Menu',
+                    'Quit'
+                ]
+            }
+        ])
+        .then((answer)=>{
+            switch (answer.choice) {
+                case 'Main Menu':
+                    start();
+                    break;
+                case 'Quit':
+                Quit();
+            }
+        })
+        
+    })
+}
+function viewDepartments() {
+    const request = "SELECT * FROM department";
+    db.query(request, function(err, res) {
+        if (err) throw err;
+        console.log("Viewing All Departments");
+        console.table(res);
+        inquirer.prompt([
+            {
+                type: 'list',
+                name: 'choice',
+                message: 'select an option.',
+                choices: [
+                    'Main Menu',
+                    'Quit'
+                ]
+            }
+        ])
+       .then((answer) => {
+           switch (answer.choice){
+               case 'Main Menu':
+                   start();
+                   break;
+                   case 'Quit':
+                       Quit();
+           }
+       })
     })
 }
 
+function newEmployee() {
+    console.log('oy')
+    inquirer.prompt ([
+        {
+        type: 'input',
+        message: 'Enter employee first name.',
+        name: 'FirstName'
+        },
+        {
+            type: 'input',
+            message: 'Enter employee last name.',
+            name: 'LastName'
+        },
+        {
+            type: 'input',
+            message: 'Enter employee ID number',
+            name: 'EmployeeID'
+        },
+        {
+            type: 'input',
+            message: 'Enter thier managers ID',
+            name: 'ManagerID'
+        }
+        
+    ])
+    .then(function (response) {
+        connection.query('INSERT INTO employees(first_name, last_name, roles_id, manager_id) VALUES (?,?,?,?)', 
+        [response.FirstName, response.LastName, response.EmployeeID, response.ManagerID]), function(err,response) {
+            if (err) throw err;
+            console.table(res);
+            inquirer.prompt([
+                {
+                    type: 'list',
+                    name: 'choice',
+                    message: 'select an option.',
+                    choices: [
+                        'Main Menu',
+                        'Quit'
+                    ]
+                }
+            ])
+           .then((answer) => {
+               switch (answer.choice){
+                   case 'Main Menu':
+                       start();
+                       break;
+                       case 'Quit':
+                           Quit();
+               }
+           })
+        }
+    })
+}
+
+
+function Quit() {
+    console.log('Goodbye!');
+    process.exit();
+    
+}
 
 // viewEmployees();
