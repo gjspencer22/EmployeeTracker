@@ -21,7 +21,7 @@ function start() {
                 'View Roles',
                 'View Departments',
                 'Add New Employee',
-                'Add Role',
+                'Add New Role',
                 'Add Department',
                 'Quit'
             ],
@@ -47,13 +47,15 @@ function start() {
 
                     newEmployee();
                     break;
-                // case 'Add Role':
+                case 'Add New Role':
 
-                //     addRole();
+                    newRole();
+                    break;
 
-                // case 'Add Department':
+                case 'Add Department':
 
-                //     addDepartment();
+                    newDepartment();
+                    break;
 
                 case 'Quit':
 
@@ -155,7 +157,6 @@ function viewDepartments() {
 }
 
 function newEmployee() {
-    console.log('oy')
     inquirer.prompt ([
         {
         type: 'input',
@@ -181,10 +182,11 @@ function newEmployee() {
     ])
     .then(function (response) {
         connection.query('INSERT INTO employees(first_name, last_name, roles_id, manager_id) VALUES (?,?,?,?)', 
-        [response.FirstName, response.LastName, response.EmployeeID, response.ManagerID]), function(err,response) {
+        [response.FirstName, response.LastName, response.EmployeeID, response.ManagerID], function(err,response) {
+            console.log(err)
             if (err) throw err;
-            console.table(res);
-            inquirer.prompt([
+            console.table(response);
+            inquirer.prompt(
                 {
                     type: 'list',
                     name: 'choice',
@@ -194,9 +196,9 @@ function newEmployee() {
                         'Quit'
                     ]
                 }
-            ])
-           .then((answer) => {
-               switch (answer.choice){
+            )
+           .then((response) => {
+               switch (response.choice){
                    case 'Main Menu':
                        start();
                        break;
@@ -204,10 +206,96 @@ function newEmployee() {
                            Quit();
                }
            })
-        }
+        })   
     })
 }
 
+function newRole () {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'Enter new role.',
+            name: 'NewRole'
+        },
+        {
+            type: 'input',
+            message: 'Enter new role salary.',
+            name: 'NewRoleSalary'
+        },
+        {
+            type: 'input',
+            message: 'Enter new role ID',
+            name: 'NewRoleID'
+        }
+    ])
+    .then(function (response) {
+        connection.query('INSERT INTO roles(title, salary, department_id) VALUES (?,?,?)', 
+        [response.NewRole, response.NewRoleSalary, response.NewRoleID], function(err,response) {
+            console.log(err)
+            if (err) throw err;
+            console.table(response);
+            inquirer.prompt(
+                {
+                    type: 'list',
+                    name: 'choice',
+                    message: 'select an option.',
+                    choices: [
+                        'Main Menu',
+                        'Quit'
+                    ]
+                }
+            )
+           .then((response) => {
+               switch (response.choice){
+                   case 'Main Menu':
+                       start();
+                       break;
+                       case 'Quit':
+                           Quit();
+               }
+           })
+        })   
+    })
+
+}
+
+function newDepartment() {
+    inquirer.prompt( [
+        {
+            type: 'input',
+            message: 'Enter new department name.',
+            name: 'NewDepartment'
+        }
+    ])
+    .then(function (response) {
+        connection.query('INSERT INTO department(department_name) VALUES(?)',
+        [response.NewDepartment], function (err, response) {
+            console.log(err)
+            if (err) throw err
+            console.table(response);
+          inquirer.prompt(
+                {
+                    type: 'list',
+                    name: 'choice',
+                    message: 'select an option.',
+                    choices: [
+                        'Main Menu',
+                        'Quit'
+                    ]
+                }
+            )
+           .then((response) => {
+               switch (response.choice){
+                   case 'Main Menu':
+                       start();
+                       break;
+                       case 'Quit':
+                           Quit();
+               }
+           })
+        })
+    })
+}
 
 function Quit() {
     console.log('Goodbye!');
@@ -215,4 +303,3 @@ function Quit() {
     
 }
 
-// viewEmployees();

@@ -18,8 +18,8 @@ VALUES
 ('Dairy','2'),
 ('GM','3'),
 ('Grocery','4'),
-('Reciving','5');
-
+('Receiving','5');
+    
 INSERT INTO roles(title, salary, department_id)
 VALUES
 ('Meat Manager', 32000, 1),
